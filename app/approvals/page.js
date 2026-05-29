@@ -102,11 +102,11 @@ export default function ApprovalsPage() {
                     />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-semibold text-zinc-900 leading-tight">{snap.title}</p>
-                      <p className="text-xs text-zinc-400 mt-0.5">
+                      <p className="text-xs text-zinc-600 mt-0.5">
                         {fmt(snap.start)} – {fmtTime(snap.end)}
                       </p>
                     </div>
-                    <span className="text-[10px] font-medium text-zinc-400 flex-shrink-0">
+                    <span className="text-[10px] font-medium text-zinc-500 flex-shrink-0">
                       {new Date(share.requestedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                     </span>
                   </div>
@@ -126,23 +126,25 @@ export default function ApprovalsPage() {
                     </span>
                   </div>
 
-                  {/* Assign to org in target calendar */}
-                  {tgtRes.length > 0 && (
-                    <div className="mx-4 mb-3">
-                      <label className="block text-[10px] font-semibold text-zinc-400 mb-1.5 uppercase tracking-wider">
-                        Assign to organization in {tgtCal?.name}
-                      </label>
+                  {/* Assign to org in target calendar — always shown */}
+                  <div className="mx-4 mb-3">
+                    <label className="block text-xs font-bold text-zinc-700 mb-1.5 uppercase tracking-wide">
+                      Assign to organization in {tgtCal?.name ?? '…'}
+                    </label>
+                    {tgtRes.length > 0 ? (
                       <select
                         value={currentOrg}
                         onChange={e => setSelectedOrg(prev => ({ ...prev, [share.id]: e.target.value }))}
-                        className="w-full px-2.5 py-1.5 text-xs border border-zinc-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                        className="w-full px-2.5 py-2 text-sm text-zinc-900 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
                       >
                         {tgtRes.map(r => (
                           <option key={r.id} value={r.id}>{r.name}</option>
                         ))}
                       </select>
-                    </div>
-                  )}
+                    ) : (
+                      <div className="h-9 bg-zinc-100 rounded-lg animate-pulse" />
+                    )}
+                  </div>
 
                   {/* Approve / Deny */}
                   <div className="flex gap-2 px-4 pb-4">
