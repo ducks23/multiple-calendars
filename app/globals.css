@@ -24,3 +24,101 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* ─── FullCalendar contrast overrides ─────────────────────────────────────── */
+
+/* CSS variable the standard theme reads for all cell borders */
+:root {
+  --fc-border-color: #94a3b8;
+  --fc-today-bg-color: rgba(59, 130, 246, 0.07);
+  --fc-neutral-text-color: #1e293b;
+  --fc-small-font-size: 0.8em;
+}
+
+/* All grid cell borders — the standard theme uses this for every td/th */
+.fc-theme-standard td,
+.fc-theme-standard th {
+  border-color: #94a3b8 !important;
+}
+
+/* Toolbar */
+.fc .fc-toolbar-title {
+  color: #0f172a;
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+/* Time-slot hour/half-hour labels (actual class: fc-timeline-slot-cushion) */
+.fc .fc-timeline-slot-cushion {
+  color: #0f172a !important;
+  font-weight: 600;
+  font-size: 0.72rem;
+}
+
+/* Week-view day column headers */
+.fc .fc-col-header-cell-cushion {
+  color: #0f172a !important;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+/* Resource area: "Organization" header label */
+.fc .fc-datagrid-cell-main {
+  color: #0f172a !important;
+  font-weight: 600;
+  font-size: 0.82rem;
+}
+
+/* Resource area: tinted background to visually separate it from the grid */
+.fc .fc-datagrid-body tr,
+.fc .fc-datagrid-col-header-cell {
+  background-color: #f1f5f9 !important;
+}
+
+/* Alternating resource rows */
+.fc .fc-datagrid-body tr:nth-child(even) {
+  background-color: #e8edf4 !important;
+}
+
+/* Match the timeline rows to alternating tint */
+.fc .fc-timeline-body .fc-timeline-lane:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+/* Event titles */
+.fc .fc-event-title {
+  font-weight: 700 !important;
+  color: #fff !important;
+}
+
+.fc .fc-event-time {
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 0.68rem;
+}
+
+/* Stronger divider between resource column and timeline */
+.fc .fc-datagrid-divider {
+  border-right-color: #64748b !important;
+  border-right-width: 2px !important;
+}
+
+/* ── Custom "+ New Event" toolbar button ──────────────────────────────────── */
+.fc .fc-newEvent-button {
+  background-color: #2563eb !important;
+  border-color: #2563eb !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  font-size: 0.78rem !important;
+  border-radius: 6px !important;
+  padding: 5px 14px !important;
+  margin-left: 6px !important;
+}
+.fc .fc-newEvent-button:hover {
+  background-color: #1d4ed8 !important;
+  border-color: #1d4ed8 !important;
+}
+.fc .fc-newEvent-button:focus {
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.35) !important;
+  outline: none !important;
+}
