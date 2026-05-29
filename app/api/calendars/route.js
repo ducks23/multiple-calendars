@@ -5,6 +5,7 @@ const calendars = [
   { id: 'personal', name: 'Personal',        color: '#10b981' },
 ]
 
+/** Returns the full list of available calendars. */
 export async function GET() {
   return Response.json(calendars)
 }

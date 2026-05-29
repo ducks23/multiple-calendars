@@ -4,6 +4,12 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 
+/**
+ * Persistent left-hand navigation sidebar.
+ * Fetches the calendar list and pending share count on mount, and refreshes
+ * the pending badge whenever the active route changes (so it updates after
+ * the user approves or denies items on the Approvals page).
+ */
 export default function Sidebar() {
   const [calendars,    setCalendars]    = useState([])
   const [pendingCount, setPendingCount] = useState(0)
@@ -23,6 +29,7 @@ export default function Sidebar() {
       .then(s => setPendingCount(s.length))
   }, [pathname])
 
+  /** Renders a styled navigation link, highlighted when active, with an optional numeric badge. */
   const navLink = (href, label, badge) => {
     const isActive = pathname === href
     return (

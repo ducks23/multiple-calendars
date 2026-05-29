@@ -16,6 +16,7 @@ export const metadata = {
   description: "Timeline calendar",
 };
 
+/** Root HTML shell applied to every page. Loads Geist fonts and locks the viewport to full height with no scroll. */
 export default function RootLayout({ children }) {
   return (
     <html

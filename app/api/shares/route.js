@@ -1,5 +1,6 @@
 import { events, shares, nextEventId, nextShareId } from '../_store.js'
 
+/** Returns all share requests, optionally filtered to a specific `status` (pending/approved/denied) via query param. */
 export async function GET(request) {
   const { searchParams } = new URL(request.url)
   const status = searchParams.get('status')
@@ -7,6 +8,7 @@ export async function GET(request) {
   return Response.json(status ? list.filter(s => s.status === status) : list)
 }
 
+/** Creates a new share request in `pending` status from the request body and returns it (201). */
 export async function POST(request) {
   const body = await request.json()
   const id = nextShareId()
@@ -22,6 +24,11 @@ export async function POST(request) {
   return Response.json(shares[id], { status: 201 })
 }
 
+/**
+ * Approves or denies a pending share request by id.
+ * On approve, copies the event snapshot into the target calendar (with optional resourceId) and marks the share approved.
+ * On deny, marks the share denied. Returns 404 if not found, 400 if already processed.
+ */
 export async function PATCH(request) {
   const body = await request.json()
   const { id, action, resourceId } = body

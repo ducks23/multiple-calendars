@@ -1,5 +1,6 @@
 import Sidebar from '../components/Sidebar'
 
+/** Layout for the approvals section. Renders the shared Sidebar alongside the page content. */
 export default function ApprovalsLayout({ children }) {
   return (
     <div className="flex h-screen overflow-hidden">

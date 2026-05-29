@@ -2,16 +2,24 @@
 
 import { useState, useEffect } from 'react'
 
+/** Formats an ISO timestamp as a readable date + time string (e.g. "Mon, Jan 6 · 2:30 PM"). */
 function fmt(isoStr) {
   const d = new Date(isoStr)
   return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) +
     ' · ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', meridiem: 'short' })
 }
 
+/** Formats an ISO timestamp as a short time string (e.g. "3:45 PM"). */
 function fmtTime(isoStr) {
   return new Date(isoStr).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
 }
 
+/**
+ * Approvals inbox. Loads all pending share requests on mount, then lazily fetches resources
+ * for each target calendar so reviewers can assign an organization before approving.
+ * Approving copies the event snapshot into the target calendar; denying discards it.
+ * Processed cards are removed from the list optimistically.
+ */
 export default function ApprovalsPage() {
   const [shares,      setShares]      = useState([])
   const [calendars,   setCalendars]   = useState({})   // { [id]: calendar }
@@ -39,6 +47,7 @@ export default function ApprovalsPage() {
     })
   }, [shares])
 
+  /** Sends an approve or deny PATCH to the shares API, then removes the card from the local list. */
   async function handleAction(shareId, action) {
     setProcessing(prev => ({ ...prev, [shareId]: true }))
     const resourceId = selectedOrg[shareId] ||

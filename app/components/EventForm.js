@@ -12,6 +12,24 @@ const inputCls = 'w-full px-3 py-2 text-sm text-zinc-900 border border-zinc-300 
 const selectCls = 'w-full px-3 py-2 text-sm text-zinc-900 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white'
 const smallInputCls = 'w-full px-2.5 py-1.5 text-xs text-zinc-900 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
 
+/**
+ * Modal form for creating or editing a calendar event.
+ * In create mode: renders title, organization, start/end, and color fields.
+ * In edit mode: adds a delete button and a "Share to Calendar" section that
+ * submits a share request to the approvals queue for another calendar.
+ *
+ * @param {object}   props.event              - Existing event object when editing; null when creating.
+ * @param {string}   props.defaultStart       - Pre-filled start value (datetime-local string).
+ * @param {string}   props.defaultEnd         - Pre-filled end value.
+ * @param {string}   props.defaultResourceId  - Pre-selected resource/organization id.
+ * @param {string}   props.defaultColor       - Pre-selected color hex.
+ * @param {Array}    props.resources          - Available resources for the current calendar.
+ * @param {Array}    props.calendars          - All calendars (used to populate the share target dropdown).
+ * @param {string}   props.currentCalendarId  - The calendar the event belongs to.
+ * @param {Function} props.onSave             - Called with the form values when the user saves.
+ * @param {Function} props.onClose            - Called when the modal should close.
+ * @param {Function} props.onDelete           - Called with the event id when the user deletes.
+ */
 export default function EventForm({
   event,
   defaultStart, defaultEnd,
@@ -36,6 +54,7 @@ export default function EventForm({
   const titleRef = useRef(null)
   useEffect(() => { titleRef.current?.focus() }, [])
 
+  /** Validates required fields, then delegates to onSave with the current form values. */
   async function handleSubmit(e) {
     e.preventDefault()
     if (!title.trim() || !start || !end || !resourceId) return
@@ -47,6 +66,7 @@ export default function EventForm({
     }
   }
 
+  /** POSTs a share request containing a snapshot of the current event to the target calendar's approval queue. */
   async function handleShare() {
     if (!shareTarget || !event) return
     setShareBusy(true)

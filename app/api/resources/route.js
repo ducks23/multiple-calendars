@@ -29,6 +29,7 @@ const resourcesByCalendar = {
   ],
 }
 
+/** Returns the list of resources for a given `calendarId` query param; returns an empty array if omitted or unrecognized. */
 export async function GET(request) {
   const { searchParams } = new URL(request.url)
   const calendarId = searchParams.get('calendarId')
