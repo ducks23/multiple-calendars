@@ -119,11 +119,12 @@ export default function CalendarView({ calendarId }) {
           customButtons={{ newEvent: { text: '+ New Event', click: openNewEventForm } }}
           headerToolbar={{
             left: 'prev,next today', center: 'title',
-            right: 'newEvent resourceTimelineDay,resourceTimelineWeek',
+            right: 'newEvent resourceTimelineDay,resourceTimelineWeek,resourceTimelineMonth',
           }}
           views={{
-            resourceTimelineDay:  { buttonText: 'Day' },
-            resourceTimelineWeek: { buttonText: 'Week' },
+            resourceTimelineDay:   { buttonText: 'Day' },
+            resourceTimelineWeek:  { buttonText: 'Week' },
+            resourceTimelineMonth: { buttonText: 'Month' },
           }}
           selectable={true}
           selectMirror={true}
