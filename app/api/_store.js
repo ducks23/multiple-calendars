@@ -63,4 +63,40 @@ export const events = {
   'p7':  makeEvent('p7',  'personal', 'projects', '#8b5cf6',  1, 14,  0, 17,  0, 'Side Project'),
 }
 
-export const shares = {}
+export const shares = {
+  share_hist_1: {
+    id: 'share_hist_1',
+    sourceEventId: 'w4',
+    sourceCalendarId: 'work',
+    targetCalendarId: 'team',
+    eventSnapshot: { title: 'Design Critique', start: '2026-05-29T11:00', end: '2026-05-29T12:00', color: '#f59e0b' },
+    requestedAt: '2026-05-29T09:15:00.000Z',
+    status: 'approved',
+    approvedAt: '2026-05-29T10:45:00.000Z',
+    newEventId: '50',
+    reviewedBy: 'Alex Rivera',
+  },
+  share_hist_2: {
+    id: 'share_hist_2',
+    sourceEventId: 'c3',
+    sourceCalendarId: 'clients',
+    targetCalendarId: 'work',
+    eventSnapshot: { title: 'Board Meeting', start: '2026-05-30T10:00', end: '2026-05-30T12:00', color: '#10b981' },
+    requestedAt: '2026-05-30T08:00:00.000Z',
+    status: 'denied',
+    deniedAt: '2026-05-30T09:30:00.000Z',
+    reviewedBy: 'Jordan Kim',
+  },
+  share_hist_3: {
+    id: 'share_hist_3',
+    sourceEventId: 'w1',
+    sourceCalendarId: 'work',
+    targetCalendarId: 'personal',
+    eventSnapshot: { title: 'Sprint Planning', start: '2026-05-31T09:00', end: '2026-05-31T10:00', color: '#3b82f6' },
+    requestedAt: '2026-05-31T08:30:00.000Z',
+    status: 'approved',
+    approvedAt: '2026-05-31T11:00:00.000Z',
+    newEventId: '51',
+    reviewedBy: 'Alex Rivera',
+  },
+}

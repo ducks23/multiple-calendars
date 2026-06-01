@@ -31,7 +31,7 @@ export async function POST(request) {
  */
 export async function PATCH(request) {
   const body = await request.json()
-  const { id, action, resourceId } = body
+  const { id, action, resourceId, reviewerName } = body
 
   if (!shares[id]) return Response.json({ error: 'Not found' }, { status: 404 })
   if (shares[id].status !== 'pending') {
@@ -53,9 +53,11 @@ export async function PATCH(request) {
     shares[id].status     = 'approved'
     shares[id].approvedAt = new Date().toISOString()
     shares[id].newEventId = newId
+    shares[id].reviewedBy = reviewerName || null
   } else if (action === 'deny') {
-    shares[id].status   = 'denied'
-    shares[id].deniedAt = new Date().toISOString()
+    shares[id].status     = 'denied'
+    shares[id].deniedAt   = new Date().toISOString()
+    shares[id].reviewedBy = reviewerName || null
   }
 
   return Response.json(shares[id])
