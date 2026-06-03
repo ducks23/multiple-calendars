@@ -32,24 +32,28 @@ const smallInputCls = 'w-full px-2.5 py-1.5 text-xs text-zinc-900 border border-
  */
 export default function EventForm({
   event,
-  defaultStart, defaultEnd,
-  defaultResourceId, defaultColor,
+  defaultStart,
+  defaultEnd,
+  defaultResourceId,
+  defaultColor,
   resources,
   calendars,
   currentCalendarId,
-  onSave, onClose, onDelete,
+  onSave,
+  onClose,
+  onDelete,
 }) {
-  const [title,      setTitle]      = useState(event?.title ?? '')
-  const [start,      setStart]      = useState(event?.start ?? defaultStart ?? '')
-  const [end,        setEnd]        = useState(event?.end   ?? defaultEnd   ?? '')
+  const [title, setTitle] = useState(event?.title ?? '')
+  const [start, setStart] = useState(event?.start ?? defaultStart ?? '')
+  const [end, setEnd] = useState(event?.end ?? defaultEnd ?? '')
   const [resourceId, setResourceId] = useState(event?.resourceId ?? defaultResourceId ?? resources[0]?.id ?? '')
-  const [color,      setColor]      = useState(event?.color ?? defaultColor ?? COLORS[0])
-  const [saving,     setSaving]     = useState(false)
+  const [color, setColor] = useState(event?.color ?? defaultColor ?? COLORS[0])
+  const [saving, setSaving] = useState(false)
 
-  const otherCals  = (calendars ?? []).filter(c => c.id !== currentCalendarId)
+  const otherCals = (calendars ?? []).filter(c => c.id !== currentCalendarId)
   const [shareTarget, setShareTarget] = useState(() => otherCals[0]?.id ?? '')
   const [shareStatus, setShareStatus] = useState(null)
-  const [shareBusy,   setShareBusy]   = useState(false)
+  const [shareBusy, setShareBusy] = useState(false)
 
   const titleRef = useRef(null)
   useEffect(() => { titleRef.current?.focus() }, [])
@@ -73,10 +77,10 @@ export default function EventForm({
     setShareStatus(null)
     try {
       const res = await fetch('/api/shares', {
-        method:  'POST',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          sourceEventId:    event.id,
+          sourceEventId: event.id,
           sourceCalendarId: currentCalendarId,
           targetCalendarId: shareTarget,
           eventSnapshot: {
@@ -179,7 +183,7 @@ export default function EventForm({
           <div className="flex items-center justify-between pt-1">
             {event
               ? <button type="button" onClick={() => onDelete(event.id)}
-                  className="text-xs font-semibold text-red-500 hover:text-red-700">Delete event</button>
+                className="text-xs font-semibold text-red-500 hover:text-red-700">Delete event</button>
               : <span />}
             <div className="flex gap-2">
               <button type="button" onClick={onClose}
